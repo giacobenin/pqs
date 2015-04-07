@@ -247,7 +247,7 @@ int main (int argc, char *argv[])
                             free (pDistances);
 
                             /* just in case there were nodes that were not connected,
-                               it should not be the case, but it does not hurt verify... */
+                               it should not be the case, but better safe then sorry... */
                             emptyQueue (pQueue);
                             delete pQueue;
                         }

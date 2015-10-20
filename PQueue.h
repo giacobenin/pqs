@@ -22,7 +22,7 @@ namespace ADS
     struct NodeDistancePair
     {
         NodeDistancePair (KEY_TYPE key, COST_TYPE cost);
-        ~NodeDistancePair (void);
+        virtual ~NodeDistancePair (void);
 
         /* Returns true if the two objects have the same _key */
         bool operator == (const NodeDistancePair &other) const;
@@ -56,6 +56,9 @@ namespace ADS
     class PQueue
     {
         public:
+            PQueue (void);
+            virtual ~PQueue (void);
+
             /* Adds an element into the priority queue */
             virtual Node<NodeDistancePairClass*> * add (NodeDistancePairClass *pNode) = 0;
 
@@ -71,7 +74,7 @@ namespace ADS
             virtual NodeDistancePairClass * pop (void) = 0;
 
             virtual NodeDistancePairClass * decreaseKey (Node<NodeDistancePairClass*> *pNode,
-                                                         NodeDistancePairClass *pNewElement)=0;
+                                                         NodeDistancePairClass *pNewElement) = 0;
 
             virtual void display (void) = 0;
     };

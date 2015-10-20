@@ -28,6 +28,16 @@ NDPObjPointerComparator::~NDPObjPointerComparator()
 
 /*****************************************************************************/
 
+PQueue::PQueue()
+{
+}
+
+PQueue::~PQueue()
+{
+}
+
+/*****************************************************************************/
+
 SimplePQ::SimplePQ (bool bIsMinHeap)
     : LChain<NodeDistancePairClass*, NDPObjPointerComparator> (false,  // the list is not sorted!
                                                                bIsMinHeap)

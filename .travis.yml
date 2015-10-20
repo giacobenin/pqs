@@ -14,7 +14,6 @@ addons:
     project:
       name: "giacobenin/pqs"
       description: "Priority Queues"
-    notification_email: giacomo.benincasa@gmail.com
     build_command_prepend: "cd make"
     build_command: "make"
     branch_pattern: master

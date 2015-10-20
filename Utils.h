@@ -30,7 +30,7 @@ namespace ADS
     unsigned int minimum (unsigned int ui1, unsigned int ui2);
     float random (unsigned int uiMax);
     float random (unsigned int uiMin, unsigned int uiMax);
-    char *strDup (const char *pszString);
+    char * strDup (const char *pszString);
     template<class T> void swap (T *&pEl1, T *&pEl2)
     {
         T *pTmp = pEl1;

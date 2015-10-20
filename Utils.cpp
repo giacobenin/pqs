@@ -61,7 +61,10 @@ bool ADS::isNumber (const char *pszString)
 
 bool ADS::isPowerOf2 (unsigned int value)
 {
-    return ((value != 0) && !(value & (value - 1)));
+    if (value == 0) {
+        return false;
+    }
+    return !(value & (value - 1));
 }
 
 void ADS::log (const char *pszMsg, ...)

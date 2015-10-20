@@ -82,7 +82,8 @@ namespace ADS
             }
 
             default:
-                return NULL;
+                delete pGraph;
+                pGraph = NULL;
         }
 
         return pGraph;
@@ -97,11 +98,13 @@ namespace ADS
             case RANDOM:
             {
                 RandomGraphGenerator graphGen;
-                graphGen.generate (pGraph, uiNVerteces, uiDensity, true);
-                break;
+                if (graphGen.generate (pGraph, uiNVerteces, uiDensity, true))
+                    break;
             }
+
             default:
-                return NULL;
+                delete pGraph;
+                pGraph = NULL;
         }
 
         return pGraph;
@@ -154,34 +157,32 @@ int main (int argc, char *argv[])
         ((mode == RANDOM) && (pszFile != NULL)))
         printUsageAndExit (argv[0]);
 
+    PQueue *pQueue = NULL;
     Graph<unsigned int> *pGraph = NULL;
     switch (mode) {
         case SIMPLE:
-        {
-            pGraph = getGraph (mode, pszFile);
-            SimplePQ *pQueue = new SimplePQ();
-            cost_type **pDistances = Algorithms<cost_type>::dijskstra (pGraph, pQueue);
-            displayDistanceMatrix (pDistances, pGraph->getVertexCount());
-            delete pGraph;
-            break;
-        }
+            if ((pQueue == NULL) && (pQueue = new SimplePQ()) == NULL)
+                break;
 
         case BINOMIAL_HEAP:
-        {
-            pGraph = getGraph (mode, pszFile);
-            BHeapPQ *pQueue = new BHeapPQ();
-            cost_type **pDistances = Algorithms<cost_type>::dijskstra (pGraph, pQueue);
-            displayDistanceMatrix (pDistances, pGraph->getVertexCount());
-            delete pGraph;
-            break;
-        }
+            if ((pQueue == NULL) && (pQueue = new BHeapPQ()) == NULL)
+                break;
+
         case FIBONACCI_HEAP:
         {
+            if ((pQueue == NULL) && (pQueue = new FHeapPQ()) == NULL)
+                break;
+
             pGraph = getGraph (mode, pszFile);
-            FHeapPQ *pQueue = new FHeapPQ();
-            cost_type **pDistances = Algorithms<cost_type>::dijskstra (pGraph, pQueue);
-            displayDistanceMatrix (pDistances, pGraph->getVertexCount());
+            if (pGraph == NULL) {
+                delete pQueue;
+                break;
+            }
+
+            cost_type **ppDistances = Algorithms<cost_type>::dijskstra (pGraph, pQueue);
+            displayDistanceMatrix (ppDistances, pGraph->getVertexCount());
             delete pGraph;
+            delete pQueue;
             break;
         }
 

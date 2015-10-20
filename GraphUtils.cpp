@@ -1,12 +1,14 @@
 #include "GraphUtils.h"
 
+#include <math.h>
+
 using namespace ADS;
 
 double GraphUtils::getDensity (unsigned int uiNVertices, unsigned int uiNEdges,
                                bool bDirectedGraph)
 {
-    return  (((double) uiNEdges) /
-            ((double) getMaxNumberOfEdges (uiNVertices, bDirectedGraph)));
+    return  (static_cast<double>(uiNEdges) /
+             static_cast<double>(getMaxNumberOfEdges (uiNVertices, bDirectedGraph)));
 }
 
 unsigned int GraphUtils::getMaxNumberOfEdges (unsigned int uiNVertices,
@@ -25,7 +27,7 @@ unsigned int GraphUtils::getNumberOfEdges (unsigned int uiNVertices,
     if ((uiDensity == 0) || (uiDensity > 100))
         return 0;
 
-    return getNumberOfEdges (uiNVertices, ((double) uiDensity) / 100.0f,
+    return getNumberOfEdges (uiNVertices, static_cast<double>(uiDensity) / 100.0f,
                              bDirectedGraph);
 }
 
@@ -36,6 +38,6 @@ unsigned int GraphUtils::getNumberOfEdges (unsigned int uiNVertices,
     if ((dDensity <= 0.0f) || (dDensity > 1.0f))
         return 0;
 
-    return (dDensity * getMaxNumberOfEdges (uiNVertices, bDirectedGraph));
+    return static_cast<unsigned int>(ceil (dDensity * getMaxNumberOfEdges (uiNVertices, bDirectedGraph)));
 }
 

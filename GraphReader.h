@@ -22,6 +22,8 @@
  * author: Giacomo Benincasa    (giacomo@cise.ufl.edu)
  */
 
+#include <string>
+
 namespace ADS
 {
     class GraphReader
@@ -34,11 +36,7 @@ namespace ADS
             bool read (Graph<unsigned int> *pGraph);
 
         private:
-            /*bool isEndOfFile (char *pszLine);
-            bool parseLine (char *pszLine, unsigned int &uiSrc,
-                            unsigned int &uiDst, unsigned int &uiCost);*/
-
-            const char *_pszFileName;
+            const std::string _fileName;
     };
 }
 

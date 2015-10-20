@@ -15,6 +15,6 @@ addons:
       name: "giacobenin/pqs"
       description: "<Your project description here>"
     notification_email: giacomo.benincasa@gmail.com
-    build_command_prepend: cd make
-    build_command: make
+    build_command_prepend: "cd make"
+    build_command: "make"
     branch_pattern: master

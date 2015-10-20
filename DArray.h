@@ -23,8 +23,8 @@ namespace ADS
                uiStartIndex.
                defaulValue value is the default value assigned
                to the elements of the array */
-            DArray (unsigned int uiLen,
-                    unsigned int uiStartIndex=0, bool bCanGrow=true);
+            explicit DArray (unsigned int uiLen,
+                             unsigned int uiStartIndex=0, bool bCanGrow=true);
             virtual ~DArray (void);
 
             /* add element at position uiIndex and replace

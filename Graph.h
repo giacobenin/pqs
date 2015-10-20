@@ -6,6 +6,7 @@
 #include "GraphUtils.h"
 #include "LChain.h"
 #include <stdio.h>
+#include <math.h>
 
 /**
  * Graph.h
@@ -200,7 +201,7 @@ namespace ADS
     template<class T>
     unsigned int Graph<T>::getDensityAsInt()
     {
-        return getDensity()*100;
+        return static_cast<int>(floor ((getDensity() * 100.0) + 0.5));
     }
 
     template<class T>

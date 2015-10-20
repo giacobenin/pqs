@@ -8,7 +8,7 @@ namespace ADS
     typedef unsigned int cost_type;
     typedef unsigned int key_type;
 
-    static cost_type INFINITY = UINT_MAX;
+    static cost_type ADS_INFINITY = UINT_MAX;
 
     static unsigned int EDGE_MIN_COST = 1;
     static unsigned int EDGE_MAX_COST = 1000;

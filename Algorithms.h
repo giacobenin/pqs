@@ -23,7 +23,7 @@ namespace ADS
     template<class T>
     T ** Algorithms<T>::dijskstra (Graph<T> *pGraph, PQueue *pQueue)
     {
-        T **ppDistances = (T**) allocateArray (pGraph->getVertexCount(), sizeof (T *));
+        T **ppDistances = static_cast<T**>(allocateArray (pGraph->getVertexCount(), sizeof (T *)));
         for (unsigned int i = 0; i < pGraph->getVertexCount(); i++)
             ppDistances[i] = dijskstra (pGraph, i, pQueue);
         return ppDistances;
@@ -144,12 +144,12 @@ namespace ADS
         pNodeDistancePairs[uiSrc] = pQueue->add (new NodeDistancePairClass (uiSrc, 0));
         for (unsigned int i = 0; i < pGraph->getVertexCount(); i++) {
             pVisited[i]  = false;
-            pDistances[i] = INFINITY;
+            pDistances[i] = ADS_INFINITY;
         }
 
         
         for (NodeDistancePairClass *pNode = pQueue->pop() ;
-             (pNode != NULL) && (pNode->_cost < INFINITY);
+             (pNode != NULL) && (pNode->_cost < ADS_INFINITY);
              pNode = pQueue->pop()) {
 
             key_type key = pNode->_key;
@@ -166,7 +166,7 @@ namespace ADS
 
                     if (!pVisited[pEdge->uiAdjVertext]) {
                         T cost = pEdge->edgeCost;
-                        if (cost == INFINITY)
+                        if (cost == ADS_INFINITY)
                             /* being pQueue ordered by cost, if pQueue's cost the next elements
                                costs are INFINITY as well */
                         break;
@@ -189,7 +189,7 @@ namespace ADS
             }
         }
 
-        for (unsigned int i; i < pGraph->getVertexCount(); i++)
+        for (unsigned int i = 0; i < pGraph->getVertexCount(); i++)
             delete pNodeDistancePairs[i];
         free (pNodeDistancePairs);
 

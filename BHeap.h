@@ -211,7 +211,7 @@ namespace ADS
             return NULL;
 
         if (pNode->getType() == FibonacciHeap) {
-            return ((FNode<T>*) pNode)->pLeftSibling;
+            return static_cast<FNode<T>*>(pNode)->pLeftSibling;
         }
 
         if (pNode->pRightSibling == NULL) {
@@ -236,8 +236,8 @@ namespace ADS
 
         if (_bIsMinHeap)
             return Comparator::lessThan (pNode1->el, pNode2->el);
-        else
-            return Comparator::greaterThan (pNode1->el, pNode2->el);
+
+        return Comparator::greaterThan (pNode1->el, pNode2->el);
     }
 
     template<class T, class Comparator>
@@ -397,17 +397,18 @@ namespace ADS
     template<class T, class Comparator>
     BNode<T> * BHeap<T, Comparator>::combine (BNode<T> *pCurrNode, BNode<T> *pSameDegreeNode)
     {
+        BNode<T> *pRet = NULL;
         BNode<T> *pNewNode;
         if (isHead (pCurrNode, pSameDegreeNode)) {
             addChild (pCurrNode, pSameDegreeNode);
             if (pCurrNode->getType() == FibonacciHeap)
-                ((FNode<T>*)pCurrNode)->bCut = false;
+                static_cast<FNode<T>*>(pCurrNode)->bCut = false;
             pNewNode = pCurrNode;
         }
         else {
             addChild (pSameDegreeNode, pCurrNode);
             if (pSameDegreeNode->getType() == FibonacciHeap)
-                ((FNode<T>*)pSameDegreeNode)->bCut = false;
+                static_cast<FNode<T>*>(pSameDegreeNode)->bCut = false;
             pNewNode = pSameDegreeNode;
         }
 
@@ -418,6 +419,9 @@ namespace ADS
         }
         else
             _degreeTable.add (pNewNode->uiDegree, pNewNode);
+
+        // TODO: fixe this!  It needs to return the node to delete
+        return NULL;
     }
 
     template<class T, class Comparator>
@@ -429,13 +433,13 @@ namespace ADS
             addChild (pNode1, pNode2);
             pNewNode = pNode1;
             if (pNode2->getType() == FibonacciHeap)
-                ((FNode<T>*)pNode2)->bCut = false;
+                static_cast<FNode<T>*>(pNode2)->bCut = false;
         }
         else {
             addChild (pNode2, pNode1);
             pNewNode = pNode2;
             if (pNode1->getType() == FibonacciHeap)
-                ((FNode<T>*)pNode1)->bCut = false;
+                static_cast<FNode<T>*>(pNode1)->bCut = false;
         }
 
         if (_degreeTable.used (pNewNode->uiDegree)) {
@@ -466,8 +470,8 @@ namespace ADS
         if (pNode->getType() == FibonacciHeap) {
             /* if it's a Fibonacci heap node, it is necessary to update right
                sibling's pointer to the node */
-            FNode<T> *pFNode = (FNode<T> *) pNode;
-            ((FNode<T> *) pFNode->pRightSibling)->pLeftSibling = (FNode<T> *) pNodeLeftSibling;
+            FNode<T> *pFNode = static_cast<FNode<T> *>(pNode);
+            static_cast<FNode<T> *>(pFNode->pRightSibling)->pLeftSibling = static_cast<FNode<T> *>(pNodeLeftSibling);
             pFNode->pLeftSibling = pFNode;
             pFNode->pParent = NULL;
         }
@@ -511,7 +515,7 @@ namespace ADS
         }
 
         updateParent (pChild->pFirstChild, pParent);
-        updateParent ((BNode<T>*)pChild->pRightSibling, pChild);
+        updateParent (static_cast<BNode<T>*>(pChild->pRightSibling), pChild);
 
         pChild->pParent = pParent->pParent;
         pParent->pParent = pChild;

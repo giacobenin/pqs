@@ -17,14 +17,13 @@ namespace ADS
     template <class T>
     void deallocateObjPtrArray (T ***pppPtr, unsigned int uiLen)
     {
-        for (unsigned int i; i < uiLen; i++)
+        for (unsigned int i = 0; i < uiLen; i++)
             delete (*pppPtr)[i];
         free (*pppPtr);
         pppPtr = NULL;
     }
 
     void emptyQueue (PQueue *pQueue);
-    long long int getCurrentTimeInMilliseconds (void);
     bool isNumber (const char *pszString);
     bool isPowerOf2 (unsigned int value);
     void log (const char *pszMsg, ...);

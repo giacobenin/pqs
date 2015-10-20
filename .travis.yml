@@ -1,4 +1,3 @@
 language: c++
-script: make -f make/Makefile
 compiler:
   - g++

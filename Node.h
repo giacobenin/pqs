@@ -16,7 +16,7 @@ namespace ADS
     struct Node
     {
         Node (T element);
-        ~Node (void);
+        virtual ~Node (void);
 
         NodeType getType (void);
 
@@ -36,7 +36,7 @@ namespace ADS
     {
         /* Creates a Node which is sibling of itself */
         BNode (T element);
-        ~BNode (void);
+        virtual ~BNode (void);
 
         /* Returns the next sibling of the element */
         unsigned int getChildCount (void);

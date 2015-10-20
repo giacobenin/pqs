@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 using namespace ADS;
 using namespace std;
@@ -14,7 +15,6 @@ namespace ADS
     int parseLine (const string &line, Graph<unsigned int> *pGraph, bool &bFoundEndOfFile)
     {
         unsigned int uiSrc, uiDst, uiCost;
-        char str[1];
         if (line.length() <= 0 || pGraph == NULL) {
             return -1;
         }
@@ -23,7 +23,7 @@ namespace ADS
             if (!pGraph->addEdge (uiSrc, uiDst, uiCost))
                 return -2;
         }
-        else if (line.length() == 1 && sscanf (line.c_str(), "%s", str) > 0 && (strcmp (str, "*") == 0)) {
+        else if (line.length() == 1 && (strcmp (line.c_str(), "*") == 0)) {
             /* end of input */
             bFoundEndOfFile = true;
             return 0;

@@ -13,7 +13,7 @@ addons:
   coverity_scan:
     project:
       name: "giacobenin/pqs"
-      description: "<Your project description here>"
+      description: "Priority Queues"
     notification_email: giacomo.benincasa@gmail.com
     build_command_prepend: "cd make"
     build_command: "make"

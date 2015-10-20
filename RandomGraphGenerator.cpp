@@ -47,8 +47,8 @@ bool RandomGraphGenerator::addEdges (Graph<unsigned int> *pGraph,
         return false;
 
     while (pGraph->getEdgeCount() < uiNEdges) {
-        unsigned int uiSrc = random (uiNVerteces);
-        unsigned int uiDst = random (uiNVerteces);
+        unsigned int uiSrc = static_cast<unsigned int>(random (uiNVerteces));
+        unsigned int uiDst = static_cast<unsigned int>(random (uiNVerteces));
         
         if (uiSrc == uiDst) {
             /* do not add edges to itself */

@@ -1,7 +1,4 @@
 language: c++
-before_script:
-  - pwd
-  - cd make
-script: make
+script: cd make && make
 compiler:
   - g++

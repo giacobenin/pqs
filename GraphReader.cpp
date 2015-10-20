@@ -63,7 +63,7 @@ bool GraphReader::read (Graph<unsigned int> *pGraph)
         readStream (std::cin, pGraph, bFoundEndOfFile);
     }
     else {
-        std::ifstream graphFile (_fileName, std::ifstream::in);
+        std::ifstream graphFile (_fileName.c_str(), std::ifstream::in);
         readStream (graphFile, pGraph, bFoundEndOfFile);
         graphFile.close();
     }

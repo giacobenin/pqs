@@ -2,3 +2,19 @@ language: c++
 script: cd make && make
 compiler:
   - g++
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "wkF61HrK1hPHwtoXG2ye3U32DTL1tShBRtImfY6nl9u4/rrKdX23OwT5gXJC5LcGrqydaiBW3XRGFcqJKttXVPNFgi5ffl3MBxKS+LiYc138CgdWnzJqSdPbgxrAqo1PYou6QlOqhkLd77dNNmjXtnPPjsu+SaX3D7uFHtYDmmjjagV5PoH7PYpB8nYCg6om3OZHRK07a9L2d5GPnl43i64jlSwmhgd/PitSvvSffFU9r3egje4oGLgQpgRgzxHAPrXflSMlGIT/5sAccJXlouJvys74zYM9wVYORYRHt/mz3iNhHFhflZz8RymWisONDcJqVBiNr5SE+B1slkwer2FZsxIpFirgA6Bh5Ar3VOW53sZTnWyQgPndGsp5Aq1IuDtApzVMcUI2gv6glkTchaRPve2SqhtZDlXbsWahj9yanOam8/lDpRB7Noxi/b8k7J0U50bDqbo3Wa+f8mYvF8gJBGW0hHOZrX+VkSD/QdrF2q3YnjZ1e4MSxR/7ehqNpx9bvONug9evPmZYsvoOftB2OZerHP44WGwDzufOM596tnACBEhYeh4nxDpO+6ia9BQJ6l8eJQzUSfWu+hp8uigmNjKuaKOtv/sRoGEkrRy4fQ93+oyuv+p4mkC36WR2mId72GKCeKFtUl2VVOnBgDqwiw3fSjpMerCoqKdUa2M="
+
+addons:
+  coverity_scan:
+    project:
+      name: "giacobenin/pqs"
+      description: "<Your project description here>"
+    notification_email: giacomo.benincasa@gmail.com
+    build_command_prepend: cd make
+    build_command: make
+    branch_pattern: master

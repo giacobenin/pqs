@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pqslib", "pqslib.vcxproj", "{FB83413C-7F34-4E3F-900E-0DDE1BEF8D55}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ssp", "ssp.vcxproj", "{2241F106-84B2-4A16-823A-C0B173511293}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB83413C-7F34-4E3F-900E-0DDE1BEF8D55}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FB83413C-7F34-4E3F-900E-0DDE1BEF8D55}.Debug|Win32.Build.0 = Debug|Win32
+		{FB83413C-7F34-4E3F-900E-0DDE1BEF8D55}.Release|Win32.ActiveCfg = Release|Win32
+		{FB83413C-7F34-4E3F-900E-0DDE1BEF8D55}.Release|Win32.Build.0 = Release|Win32
+		{2241F106-84B2-4A16-823A-C0B173511293}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2241F106-84B2-4A16-823A-C0B173511293}.Debug|Win32.Build.0 = Debug|Win32
+		{2241F106-84B2-4A16-823A-C0B173511293}.Release|Win32.ActiveCfg = Release|Win32
+		{2241F106-84B2-4A16-823A-C0B173511293}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -207,12 +207,14 @@ namespace ADS
     template<class T, class Comparator>
     BNode<T> * BHeap<T, Comparator>::getLeftSibling (BNode<T> *pNode)
     {
+        if (pNode == NULL)
+            return NULL;
+
         if (pNode->getType() == FibonacciHeap) {
             return ((FNode<T>*) pNode)->pLeftSibling;
         }
 
-        if (pNode == NULL || pNode->pRightSibling == NULL) {
-            //pNode->el->display();
+        if (pNode->pRightSibling == NULL) {
             display();
         }
         

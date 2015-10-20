@@ -1,14 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <assert.h>
 
 #include "DArray.h"
 
 #include "Algorithms.h"
-#include "BHeap.h"
 #include "Defs.h"
-#include "FHeap.h"
 #include "Graph.h"
 #include "GraphReader.h"
 #include "MovingMean.h"
@@ -17,122 +14,123 @@
 
 using namespace ADS;
 
-enum Mode {
-    SIMPLE = 0x00,
-    FIBONACCI_HEAP = 0x01,
-    BINOMIAL_HEAP = 0x02,
-    RANDOM = 0x03,
-
-    UNSUPPORTED = 0x04
-};
-
-const char * PERFORMANCE_MATRIX_COLUMNS [] = {"Number of vertices", "Density",
-                                              "Simple scheme(msec)",
-                                              "F-heap scheme (msec)", "B-heap scheme(msec)"};
-
-void displayPerformanceMatrixColumnNames (void)
+namespace ADS
 {
-    for (unsigned int i = 0; i < 5; i++)
-        printf ("%s\t", PERFORMANCE_MATRIX_COLUMNS[i]);
-    printf ("\n");
-}
+    enum Mode {
+        SIMPLE = 0x00,
+        FIBONACCI_HEAP = 0x01,
+        BINOMIAL_HEAP = 0x02,
+        RANDOM = 0x03,
 
-void displayPerformanceMatrix (unsigned int uiNVerteces, unsigned int uiDensity, 
-                               double *pMeanTimeInMSec)
-{
-    /* print one row of the performance matrix */
-    printf ("%u\t\t\t%u%%\t\t\t%f\t\t\t%f\t\t\t%f\n",
-            uiNVerteces, uiDensity, pMeanTimeInMSec[SIMPLE],
-            pMeanTimeInMSec[FIBONACCI_HEAP], pMeanTimeInMSec[BINOMIAL_HEAP]);
-}
+        UNSUPPORTED = 0x04
+    };
 
-void displayDistanceMatrix (cost_type **pDistances, unsigned int uiNNodes)
-{
-    /* printf distance matrix columns names */
-    printf ("Node");
-    for (unsigned int i = 0; i < uiNNodes; i++)
-        printf ("\t\t%u", i);
-    printf ("\n");
+    const char * PERFORMANCE_MATRIX_COLUMNS[] = { "Number of vertices", "Density",
+        "Simple scheme(msec)",
+        "F-heap scheme (msec)", "B-heap scheme(msec)" };
 
-    for (unsigned int i = 0; i < uiNNodes; i++) {
-        /* print distance matrix row name */
-        printf ("%u", i);
-        for (unsigned int j = 0; j < uiNNodes; j++)
-            if ((i == j) || (pDistances[i][j] == INFINITY))
-                 printf ("\t\t?");
-            else
-                printf ("\t\t%u", pDistances[i][j]);
-
+    void displayPerformanceMatrixColumnNames (void)
+    {
+        for (unsigned int i = 0; i < 5; i++)
+            printf ("%s\t", PERFORMANCE_MATRIX_COLUMNS[i]);
         printf ("\n");
     }
-}
 
-Graph<unsigned int> * getGraph (Mode mode, const char *pszFile)
-{
-    Graph<unsigned int> *pGraph =
-        new Graph<unsigned int> (GRAPH_DIRECTED, GRAPH_ALLOWS_DUPLICATE_EDGES);
-
-    switch (mode) {
-        case SIMPLE:
-        case BINOMIAL_HEAP:
-        case FIBONACCI_HEAP:
-        {
-            GraphReader *pReader = new GraphReader (pszFile);
-            pReader->read (pGraph);
-            break;
-        }
-
-        default:
-            return NULL;
+    void displayPerformanceMatrix (unsigned int uiNVerteces, unsigned int uiDensity,
+        double *pMeanTimeInMSec)
+    {
+        /* print one row of the performance matrix */
+        printf ("%u\t\t\t%u%%\t\t\t%f\t\t\t%f\t\t\t%f\n",
+            uiNVerteces, uiDensity, pMeanTimeInMSec[SIMPLE],
+            pMeanTimeInMSec[FIBONACCI_HEAP], pMeanTimeInMSec[BINOMIAL_HEAP]);
     }
 
-    return pGraph;
-}
+    void displayDistanceMatrix (cost_type **pDistances, unsigned int uiNNodes)
+    {
+        /* printf distance matrix columns names */
+        printf ("Node");
+        for (unsigned int i = 0; i < uiNNodes; i++)
+            printf ("\t\t%u", i);
+        printf ("\n");
 
-Graph<unsigned int> * getRandomGraph (Mode mode, unsigned int uiNVerteces, unsigned int uiDensity)
-{
-    Graph<unsigned int> *pGraph =
-        new Graph<unsigned int> (GRAPH_DIRECTED, GRAPH_ALLOWS_DUPLICATE_EDGES);
+        for (unsigned int i = 0; i < uiNNodes; i++) {
+            /* print distance matrix row name */
+            printf ("%u", i);
+            for (unsigned int j = 0; j < uiNNodes; j++)
+                if ((i == j) || (pDistances[i][j] == ADS_INFINITY))
+                    printf ("\t\t?");
+                else
+                    printf ("\t\t%u", pDistances[i][j]);
 
-    switch (mode) {
-        case RANDOM:
-        {
-            RandomGraphGenerator *pGenerator = new RandomGraphGenerator();
-            pGenerator->generate (pGraph, uiNVerteces, uiDensity, true);
-            break;
+            printf ("\n");
         }
-
-        default:
-            return NULL;
     }
 
-    return pGraph;
-}
+    Graph<unsigned int> * getGraph (Mode mode, const char *pszFile)
+    {
+        Graph<unsigned int> *pGraph =
+            new Graph<unsigned int> (GRAPH_DIRECTED, GRAPH_ALLOWS_DUPLICATE_EDGES);
 
-Mode parseMode (const char *pszMode)
-{
-    if (NULL == pszMode || 0 == strlen (pszMode))
+        switch (mode) {
+            case SIMPLE:
+            case BINOMIAL_HEAP:
+            case FIBONACCI_HEAP:
+            {
+                GraphReader reader (pszFile);
+                if (reader.read (pGraph))
+                    break;
+            }
+
+            default:
+                return NULL;
+        }
+
+        return pGraph;
+    }
+
+    Graph<unsigned int> * getRandomGraph (Mode mode, unsigned int uiNVerteces, unsigned int uiDensity)
+    {
+        Graph<unsigned int> *pGraph =
+            new Graph<unsigned int> (GRAPH_DIRECTED, GRAPH_ALLOWS_DUPLICATE_EDGES);
+
+        switch (mode) {
+            case RANDOM:
+            {
+                RandomGraphGenerator graphGen;
+                graphGen.generate (pGraph, uiNVerteces, uiDensity, true);
+                break;
+            }
+            default:
+                return NULL;
+        }
+
+        return pGraph;
+    }
+
+    Mode parseMode (const char *pszMode)
+    {
+        if (NULL == pszMode || 0 == strlen (pszMode))
+            return UNSUPPORTED;
+
+        if (0 == strcmp ("-r", pszMode))
+            return RANDOM;
+        if (0 == strcmp ("-is", pszMode))
+            return SIMPLE;
+        if (0 == strcmp ("-if", pszMode))
+            return FIBONACCI_HEAP;
+        if (0 == strcmp ("-ib", pszMode))
+            return BINOMIAL_HEAP;
+
         return UNSUPPORTED;
+    }
 
-    if (0 == strcmp ("-r", pszMode))
-        return RANDOM;
-    else if (0 == strcmp ("-is", pszMode))
-        return SIMPLE;
-    else if (0 == strcmp ("-if", pszMode))
-        return FIBONACCI_HEAP;
-    else if (0 == strcmp ("-ib", pszMode))
-        return BINOMIAL_HEAP;
-
-    return UNSUPPORTED;
-}
-
-void printUsageAndExit (const char *pszProgram)
-{
-    printf ("Usage:\n%s -r\n%s -is <file>\n%s -ib <file>\n%s -if <file>\n",
+    void printUsageAndExit (const char *pszProgram)
+    {
+        printf ("Usage:\n%s -r\n%s -is <file>\n%s -ib <file>\n%s -if <file>\n",
             pszProgram, pszProgram, pszProgram, pszProgram);
-    exit (1);
+        exit (1);
+    }
 }
-
 int main (int argc, char *argv[])
 {
     if (argc > 3)
@@ -191,8 +189,8 @@ int main (int argc, char *argv[])
         {
             displayPerformanceMatrixColumnNames();
 
-            unsigned int verticesLen = sizeof (N_VERTECES)/ sizeof (unsigned int);
-            unsigned int densitiesLen = sizeof (GRAPH_DENSITIES)/ sizeof (unsigned int);
+            const unsigned int verticesLen = sizeof (N_VERTECES)/ sizeof (unsigned int);
+            const unsigned int densitiesLen = sizeof (GRAPH_DENSITIES)/ sizeof (unsigned int);
 
             MovingMean<long long int> mean;
             StopWatch sw;

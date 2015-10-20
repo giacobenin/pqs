@@ -2,16 +2,51 @@
 
 #include "Graph.h"
 
-#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <fstream>
+#include <iostream>
 
 using namespace ADS;
+using namespace std;
+
+namespace ADS
+{
+    int parseLine (const string &line, Graph<unsigned int> *pGraph, bool &bFoundEndOfFile)
+    {
+        unsigned int uiSrc, uiDst, uiCost;
+        char str[1];
+        if (line.length() <= 0 || pGraph == NULL) {
+            return -1;
+        }
+        if (sscanf (line.c_str(), "%d %d %d", &uiSrc, &uiDst, &uiCost) == 3) {
+            /* srcVertex dstVertex edgeCost */
+            if (!pGraph->addEdge (uiSrc, uiDst, uiCost))
+                return -2;
+        }
+        else if (line.length() == 1 && sscanf (line.c_str(), "%s", str) > 0 && (strcmp (str, "*") == 0)) {
+            /* end of input */
+            bFoundEndOfFile = true;
+            return 0;
+        }
+        else {
+            printf ("Invalid: %s\n", line.c_str());
+            return -3;
+        }
+        return 0;
+    }
+
+    int readStream (istream &stream, Graph<unsigned int> *pGraph, bool &bFoundEndOfFile)
+    {
+        for (std::string line; std::getline (stream, line);)
+            if (parseLine (line, pGraph, bFoundEndOfFile) < 0)
+                return -1;
+        return 0;
+    }
+}
 
 GraphReader::GraphReader (const char *pszFileName)
+    : _fileName (pszFileName)
 {
-    _pszFileName = pszFileName;
 }
 
 GraphReader::~GraphReader (void)
@@ -23,37 +58,14 @@ bool GraphReader::read (Graph<unsigned int> *pGraph)
     if (pGraph == NULL)
         return false;
 
-    FILE *pFile = (_pszFileName == NULL ? stdin : fopen (_pszFileName, "r"));
-    if (pFile == NULL)
-        return false;
-
     bool bFoundEndOfFile = false;
-    char *pszLine = NULL;
-    size_t len = 0;
-    ssize_t read;
-
-    while ((read = getline (&pszLine, &len, pFile)) != -1) {
-
-        unsigned int uiSrc, uiDst, uiCost;
-        char str[1];
-
-        if (sscanf (pszLine, "%d %d %d", &uiSrc, &uiDst, &uiCost) == 3) {
-            /* srcVertex dstVertex edgeCost */
-            if (!pGraph->addEdge (uiSrc, uiDst, uiCost))
-                break;
-        }
-        else if (sscanf (pszLine, "%s", str) > 0 && (strcmp (str, "*") == 0)) {
-            /* end of input */
-            bFoundEndOfFile = true;
-            break;
-        }
-        else {
-            printf ("Invalid: %s\n", pszLine);
-        }
+    if (_fileName.length() <= 0) {
+        readStream (std::cin, pGraph, bFoundEndOfFile);
     }
-
-    if (pszLine)
-        free (pszLine);
+    else {
+        std::ifstream infile (_fileName);
+        readStream (infile, pGraph, bFoundEndOfFile);
+    }
 
     return bFoundEndOfFile;
 }

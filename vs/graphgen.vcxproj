@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2241F106-84B2-4A16-823A-C0B173511293}</ProjectGuid>
-    <RootNamespace>dsssp</RootNamespace>
+    <ProjectGuid>{825E16AD-8D21-42CE-B357-5F62BC1E212D}</ProjectGuid>
+    <RootNamespace>graphgen</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -64,12 +64,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\graphgen.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="pqslib.vcxproj">
       <Project>{fb83413c-7f34-4e3f-900e-0dde1bef8d55}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\ssp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

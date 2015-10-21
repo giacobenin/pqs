@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pqslib", "pqslib.vcxproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ssp", "ssp.vcxproj", "{2241F106-84B2-4A16-823A-C0B173511293}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graphgen", "graphgen.vcxproj", "{825E16AD-8D21-42CE-B357-5F62BC1E212D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{2241F106-84B2-4A16-823A-C0B173511293}.Debug|Win32.Build.0 = Debug|Win32
 		{2241F106-84B2-4A16-823A-C0B173511293}.Release|Win32.ActiveCfg = Release|Win32
 		{2241F106-84B2-4A16-823A-C0B173511293}.Release|Win32.Build.0 = Release|Win32
+		{825E16AD-8D21-42CE-B357-5F62BC1E212D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{825E16AD-8D21-42CE-B357-5F62BC1E212D}.Debug|Win32.Build.0 = Debug|Win32
+		{825E16AD-8D21-42CE-B357-5F62BC1E212D}.Release|Win32.ActiveCfg = Release|Win32
+		{825E16AD-8D21-42CE-B357-5F62BC1E212D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

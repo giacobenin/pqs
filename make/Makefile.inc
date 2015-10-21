@@ -15,7 +15,6 @@ testsources = $(wildcard ../test/*.cpp)
 testobjects = $(sources:../test/%.cpp=%.o
 
 library=ads
-exec=ssp
 
 test_dir=../test
-tests=DArrayTest BHeapTest GraphReaderTest GraphTest GraphGeneratorTest SimplePQTest BHeapPQTest FHeapPQTest
+tests=DArrayTest BHeapTest GraphReaderTest GraphTest SimplePQTest BHeapPQTest FHeapPQTest

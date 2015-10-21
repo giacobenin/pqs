@@ -10,16 +10,22 @@ include Makefile.inc
 %.o : ../test/%.cpp
 	$(cpp) -c $(cppflags) $<
 
-all: $(exec)
+all: ssp graphgen
 
 $(library).a: $(objects)
 	ar -rcv $(library).a $(objects)
 
-$(exec): $(library).a
+ssp: $(library).a
 	$(cpp) $(cppflags) $(ld_flags) \
-	../main.cpp \
+	../ssp.cpp \
 	$(library).a \
-	-o $(exec)
+	-o ssp
+
+graphgen: $(library).a
+	$(cpp) $(cppflags) $(ld_flags) \
+	../graphgen.cpp \
+	$(library).a \
+	-o graphgen
 
 log: $(library).a
 	$(cpp) $(cppflags) -DENABLE_DBG_OUTPUT $(ld_flags) \
@@ -51,12 +57,6 @@ GraphTest:  $(library).a
 	$(library).a \
 	-o GraphTest
 
-GraphGeneratorTest:  $(library).a 
-	$(cpp) $(cppflags) -DENABLE_DBG_OUTPUT $(ld_flags) \
-	$(test_dir)/GraphGeneratorTest.cpp \
-	$(library).a \
-	-o GraphGeneratorTest
-
 SimplePQTest:  $(library).a 
 	$(cpp) $(cppflags) -DENABLE_DBG_OUTPUT $(ld_flags) \
 	$(test_dir)/SimplePQTest.cpp \
@@ -78,4 +78,4 @@ FHeapPQTest:  $(library).a
 tests: $(tests)
 
 clean:
-	rm -rf *.o $(library).a $(exec) $(exec)-log $(tests)
+	rm -rf *.o $(library).a ssp ssp-log graphgen $(tests)

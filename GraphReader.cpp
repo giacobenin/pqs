@@ -14,10 +14,13 @@ namespace ADS
 {
     int parseLine (const string &line, Graph<unsigned int> *pGraph, bool &bFoundEndOfFile)
     {
-        unsigned int uiSrc, uiDst, uiCost;
-        if (line.length() <= 0 || pGraph == NULL) {
+        if (pGraph == NULL) {
             return -1;
         }
+        if (line.length() <= 0) {
+            return 0;
+        }
+        unsigned int uiSrc, uiDst, uiCost;
         if (sscanf (line.c_str(), "%d %d %d", &uiSrc, &uiDst, &uiCost) == 3) {
             /* srcVertex dstVertex edgeCost */
             if (!pGraph->addEdge (uiSrc, uiDst, uiCost))
@@ -35,17 +38,21 @@ namespace ADS
         return 0;
     }
 
-    int readStream (istream &stream, Graph<unsigned int> *pGraph, bool &bFoundEndOfFile)
+    int readStream (istream &stream, Graph<unsigned int> *pGraph)
     {
-        for (std::string line; std::getline (stream, line);)
+        bool bFoundEndOfFile = false;
+        for (std::string line; std::getline (stream, line) && (!bFoundEndOfFile);) {
+            if (stream.fail())
+                break;
             if (parseLine (line, pGraph, bFoundEndOfFile) < 0)
                 return -1;
+        }
         return 0;
     }
 }
 
 GraphReader::GraphReader (const char *pszFileName)
-    : _fileName (pszFileName)
+    : _fileName (pszFileName == NULL ? "" : pszFileName)
 {
 }
 
@@ -58,17 +65,17 @@ bool GraphReader::read (Graph<unsigned int> *pGraph)
     if (pGraph == NULL)
         return false;
 
-    bool bFoundEndOfFile = false;
+    int rc = 0;
     if (_fileName.length() <= 0) {
-        readStream (std::cin, pGraph, bFoundEndOfFile);
+        rc = readStream (std::cin, pGraph);
     }
     else {
         std::ifstream graphFile (_fileName.c_str(), std::ifstream::in);
-        readStream (graphFile, pGraph, bFoundEndOfFile);
+        rc = readStream (graphFile, pGraph);
         graphFile.close();
     }
 
-    return bFoundEndOfFile;
+    return (rc == 0);
 }
 
 

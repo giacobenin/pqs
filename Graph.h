@@ -7,6 +7,8 @@
 #include "LChain.h"
 #include <stdio.h>
 #include <math.h>
+#include <ios>
+#include <ostream>
 
 /**
  * Graph.h
@@ -95,8 +97,7 @@ namespace ADS
 
             bool isDirected (void);
 
-            void display (void);
-            void dump (FILE *pFile);
+            void dump (std::ostream &out, bool bPrintColumnNames);
 
         private:
             /* Performs a depth-first traverse of the graph */
@@ -306,9 +307,8 @@ namespace ADS
                    a sufficient condition for the graph to be strongly connected
                    (and therefore not to be weakly connected as well */
                 break;
-            else
-                /* Reset array of visited nodes */
-                setArray ((int)false, pVisited, _uiNVertexes, sizeof (bool));
+            /* Reset array of visited nodes */
+            setArray ((int)false, pVisited, _uiNVertexes, sizeof (bool));
         }
 
         deallocate ((void**)&pVisited);
@@ -338,35 +338,17 @@ namespace ADS
     }
 
     template<class T>
-    void Graph<T>::display()
+    void Graph<T>::dump (std::ostream &out, bool bPrintColumnNames)
     {
-        printf ("[vertex]\tuiAdjVertex (cost)\tuiAdjVertex (cost) ...\n");
-        for (unsigned int i = 0; i < _vertices.size(); i++) {
+        if (bPrintColumnNames) {
+            printf ("[vertex]\tuiAdjVertex (cost)\tuiAdjVertex (cost) ...\n");
+        }
+        for (unsigned int i = 0; i < _vertices.size (); i++) {
             Vertex<T> *pVertex = _vertices.get (i);
             if (pVertex != NULL) {
-                Edge<T> *pEdge = pVertex->edges.getFirst (true);
-                if (pEdge != NULL) {
-                    printf ("[%d]", pVertex->uiVertexKey);
-                    for (; pEdge != NULL; pEdge = pVertex->edges.getNext()) {
-                        printf ("\t%d (%d)", pEdge->uiAdjVertext, pEdge->edgeCost);
-                    }
-                    printf ("\n");
-                }
-            }
-        }
-    }
-
-    template<class T>
-    void Graph<T>::dump (FILE *pFile)
-    {
-        for (unsigned int i = 0; i < _vertices.size(); i++) {
-            Vertex<T> *pVertex = _vertices.get (i);
-            if (pVertex != NULL) {   
                 for (Edge<T> *pEdge = pVertex->edges.getFirst (true);
-                     pEdge != NULL; pEdge = pVertex->edges.getNext()) {
-                    fprintf (pFile, "%u %u %u\n", pVertex->uiVertexKey,
-                                                  pEdge->uiAdjVertext,
-                                                  pEdge->edgeCost);
+                    pEdge != NULL; pEdge = pVertex->edges.getNext()) {
+                    out << pVertex->uiVertexKey << ' ' << pEdge->uiAdjVertext << ' ' << pEdge->edgeCost << std::endl;
                 }
             }
         }

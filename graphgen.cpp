@@ -4,6 +4,9 @@
 #include "RandomGraphGenerator.h"
 #include <iostream>
 #include <fstream>
+#ifndef WIN
+    #include <string.h>
+#endif
 
 using namespace ADS;
 
@@ -36,7 +39,7 @@ namespace ADS
 
     int parseOptions (int argc, const char *argv[], Options &opts)
     {
-        for (auto i = 1; i < argc; ++i) {
+        for (int i = 1; i < argc; ++i) {
             if ((strcmp (argv[i], "-o") == 0) || (strcmp (argv[i], "--out") == 0)) {
                 if ((++i) < argc)
                     opts.pszOutputFile = argv[i];

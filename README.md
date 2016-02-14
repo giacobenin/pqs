@@ -34,7 +34,7 @@ Alternatively
     ./ssp -r
 
 runs Dijkstra's Single Source Shortest Path algorithm on a set of random graphs with different densities using for each priority queue and outputs the performance of each.
-The output looks something like as follows:
+The output format looks as follows:
 
     Number of vertices    Density	Simple scheme(msec)    F-heap scheme (msec)    B-heap scheme(msec)
     1001                  10%       	69464.000000           50349.000000            45607.000000

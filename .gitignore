@@ -1,3 +1,13 @@
+# Executables
+ssp
+graphgen
+
+# CLion
+.idea*
+
+# CMake
+cmake-build*
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

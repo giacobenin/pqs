@@ -19,7 +19,7 @@
  * be ints), and Cz is the cost of directed edge.
  * The file terminates with a line containing only the "*" character.
  *
- * author: Giacomo Benincasa    (giacomo@cise.ufl.edu)
+ * author: Giacomo Benincasa    (me@gbenin.casa)
  */
 
 #include <string>

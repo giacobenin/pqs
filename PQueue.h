@@ -13,7 +13,7 @@
  * Generic interface for a priority queue of vertexes
  * and its implementations.
  *
- * author: Giacomo Benincasa    (giacomo@cise.ufl.edu)
+ * author: Giacomo Benincasa    (me@gbenin.casa)
  */
 
 namespace ADS

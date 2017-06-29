@@ -2,9 +2,7 @@ pqs (Priority QueueS)
 =====================
 [![Build Status](https://travis-ci.org/giacobenin/pqs.svg?branch=master)](https://travis-ci.org/giacobenin/pqs) [![Analysis Status](https://scan.coverity.com/projects/6719/badge.svg)](https://scan.coverity.com/projects/giacobenin-pqs)
 
-Code implemented for the 2011 Advanced Data Structures (COP5536) class project at UF.
-
-The project asked to implement [Dijkstra's Single Source Shortest Path algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) for directed graphs using different priotity queues (notably [Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_heap) and [Binomial](https://en.wikipedia.org/wiki/Binomial_heap) Heaps).
+Implementation of [Dijkstra's Single Source Shortest Path algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) for directed graphs using different priotity queues (notably [Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_heap) and [Binomial](https://en.wikipedia.org/wiki/Binomial_heap) Heaps).
 
 # Build
 

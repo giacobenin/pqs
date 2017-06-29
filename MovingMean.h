@@ -1,7 +1,7 @@
 /* 
  * File:   MovingMean.h
  *
- * Author: Giacomo Benincasa    (giacomo@cise.ufl/edu)
+ * Author: Giacomo Benincasa    (me@gbenin.casa)
  *
  * Created on October 30, 2011, 1:22 AM
  */

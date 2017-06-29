@@ -8,7 +8,7 @@
  *
  * Generic template that implements a Fibonacci Heap.
  *
- * author: Giacomo Benincasa    (giacomo@cise.ufl.edu)
+ * author: Giacomo Benincasa    (me@gbenin.casa)
  */
 
 namespace ADS

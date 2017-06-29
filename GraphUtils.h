@@ -6,7 +6,7 @@
  *
  * Collection of a few Network Theory Functions.
  *
- * author: Giacomo Benincasa    (giacomo@cise.ufl.edu)
+ * author: Giacomo Benincasa    (me@gbenin.casa)
  */
 
 namespace ADS
